@@ -84,11 +84,9 @@ export const StarWars: React.FC = () => {
         value={input}
         onChange={(e) => setInput(Number(e.currentTarget.value))}
       />
-      {totalCount &&
-        <div className="total-characters">
-            there are {totalCount} characters
-        </div>
-      }
+      {/* the api has too long delay and some numbers are missing... 
+        17 is absent, but 83 is present, and total count is shown as 82 */}
+      {totalCount && <div className="total-characters">there are {totalCount} characters</div>}
 
       <button onClick={handleClick}>Use Force!</button>
     </div>
