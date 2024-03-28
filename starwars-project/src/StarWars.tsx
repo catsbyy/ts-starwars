@@ -61,8 +61,8 @@ export const StarWars: React.FC = () => {
           Object.entries(character)
             .slice(0, 8) // Slice the array to include only the first 8 entries
             .map(([key, value]) => (
-              <div key={key} className="character-key">
-                <span>{key}: </span>
+              <div key={key} className="character-section">
+                <span className="character-key">{key}: </span>
                 {Array.isArray(value) ? (
                   <ul>
                     {value.map((item, index) => (

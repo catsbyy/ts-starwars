@@ -56,6 +56,10 @@ button:hover {
   transition: all ease-in .1s;
 }
 
+.character-section {
+  background: transparent;
+}
+
 .character-key {
   color: rgba(255, 255, 255, 0.657);
 }
