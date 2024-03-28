@@ -1,23 +1,5 @@
 import React, { useState, useEffect } from "react";
-
-interface Character {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: any[];
-  starships: any[];
-  created: string;
-  edited: string;
-  url: string;
-}
+import { Character } from "./Character";
 
 export const StarWars: React.FC = () => {
   const api_base: string = "https://swapi.dev/api";
@@ -26,6 +8,8 @@ export const StarWars: React.FC = () => {
   const [input, setInput] = useState<number>();
 
   const [character, setCharacter] = useState<Character>();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [totalCount, setTotalCount] = useState<number>();
 
@@ -45,9 +29,13 @@ export const StarWars: React.FC = () => {
   }, []);
 
   const getCharacter = async () => {
+    setLoading(true);
     const response = await fetch(api_base + api_endpoint + input);
     const parsedData = await response.json();
     setCharacter(parsedData);
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
   };
 
   useEffect(() => {
@@ -61,23 +49,32 @@ export const StarWars: React.FC = () => {
   return (
     <div className="main-container">
       <h1>Star Wars character</h1>
-      {character &&
-        Object.entries(character)
-          .slice(0, 8) // Slice the array to include only the first 8 entries
-          .map(([key, value]) => (
-            <div key={key} className="character-key">
-              <span>{key}: </span>
-              {Array.isArray(value) ? (
-                <ul>
-                  {value.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              ) : (
-                <span className="character-value">{value}</span>
-              )}
-            </div>
-          ))}
+      {loading && (
+        <img
+          className="loading-picture"
+          src="https://i.pinimg.com/originals/96/ea/bc/96eabc812b02070e025cb41776b91803.gif"
+        />
+      )}
+      {loading == false && <div className="character-details" style={{height: character ? "200px":"0px"}}>
+        {
+          character &&
+          Object.entries(character)
+            .slice(0, 8) // Slice the array to include only the first 8 entries
+            .map(([key, value]) => (
+              <div key={key} className="character-key">
+                <span>{key}: </span>
+                {Array.isArray(value) ? (
+                  <ul>
+                    {value.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span className="character-value">{value}</span>
+                )}
+              </div>
+            ))}
+      </div>}
       <input
         placeholder="Enter number"
         type="number"

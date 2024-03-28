@@ -71,3 +71,15 @@ button:hover {
   background: transparent;
   color: rgba(255, 255, 255, 0.657);
 }
+
+.loading-picture {
+  width: 200px;
+  height: 200px;
+}
+
+.character-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+}
